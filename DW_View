@@ -1,0 +1,21 @@
+Create View [dbo].[Report_InternetSales]
+As
+Select	fis.CurrencyKey,
+		fis.OrderQuantity,
+		fis.SalesAmount,
+		fis.TaxAmt,
+		fis.TotalProductCost,
+		c.CustomerKey,
+		c.FirstName,
+		c.MiddleName,
+		c.LastName,
+		p.ProductKey,
+		p.EnglishProductName,
+		g.GeographyKey,
+		g.City,
+		g.StateProvinceName
+From DimGeography g
+Join DimCustomer c on g.GeographyKey = c.GeographyKey
+Join FactInternetSales fis on c.CustomerKey = fis.CustomerKey
+Join DimProduct p on fis.ProductKey = p.ProductKey
+Where fis.CurrencyKey = 100
